@@ -681,6 +681,21 @@ Known issues
 You can also check the [FAQ](https://github.com/muammar/mkchromecast/wiki/FAQ)
 for more information.
 
+## For a Fast Build and Run (Tested on Ubuntu 16.04)
+
+<pre>
+git clone https://github.com/Scott31393/mkchromecast.git
+sudo apt install libgirepository1.0-dev
+sudo apt install ffmpeg libav-tools lame python3-dev python3-virtualenv 
+python3 -m virtualenv --python=/usr/bin/python3 py3
+source py3/bin/activate
+pip install -r requirements.txt
+python mkchromecast.py --video --command 'ffmpeg -f pulse -ac 2 -i default -f x11grab -r 25 -s 1920x1080 -i :1 -strict -2 -vcodec libx264 -preset ultrafast -tune zerolatency -maxrate 10000k -bufsize 20000k -pix_fmt yuv420p -g 60 -f mp4 -movflags frag_keyframe+empty_moov pipe:1' -s --debug
+
+Run it using:
+
+bin/mkchromecast --video --screencast --resolution 1080p -s
+</pre>
 
 TODO
 ----
